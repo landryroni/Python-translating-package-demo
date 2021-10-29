@@ -1,5 +1,5 @@
-## discussing about 3 python translating package
-# for jupyter notebook i will suggest to use 'deep_translator' as its doesnt have any error to deal with
+## demo about 3 python translating package
+# for jupyter notebook i will suggest to use 'deep_translator' as it doesn't have any error to deal with
 # googletrans need version googletrans==4.0.0.-rc1 or googletrans==3.1.0a0 atleast
 
 import pandas as pd
@@ -29,35 +29,28 @@ from deep_translator import (GoogleTranslator,
 #let's create a pandas table
 
 color_df = pd.DataFrame({
-    "Color":["红",'绿','黄','白','黑']
+    "Zh-Color":["红",'绿','黄','白','黑']
 })
 
 #?print(color_df)
 
 ## Let's try deep_translator
 deep_translator = GoogleTranslator(source='auto',target='en')
-color_df['En_Color']=color_df['Color'].apply(lambda x: deep_translator.translate(x))
-
-# print('color english translator:',color_df)
+color_df['En_Color']=color_df['Zh-Color'].apply(lambda x: deep_translator.translate(x))
 
 # Let's try with googletrans translating our column to spanish 
 google_trans = Translator()
-color_df['Sp_Color'] = color_df['Color'].apply(google_trans.translate,src='zh-TW', dest='es').apply(getattr,args=('text',))
+color_df['Sp_Color'] = color_df['Zh-Color'].apply(google_trans.translate,src='zh-TW', dest='es').apply(getattr,args=('text',))
 print("color spainish translator:",color_df)
 
 # Let's try with google_trans_new translating our column to french  
 translator = google_translator()
-color_df['Fr_Color'] = color_df['Color'].apply(translator.translate,lang_src='zh', lang_tgt='fr')
-print("color french translator:",color_df)
+color_df['Fr_Color'] = color_df['Zh-Color'].apply(translator.translate,lang_src='zh', lang_tgt='fr')
 
+# print the final result with translated columns
+print("color_df with translation(english,spanish and french) columns added french translator:",color_df)
 
 # save our color_df as a
-ax = plt.subplot(111, frame_on=False) # no visible frame
-ax.xaxis.set_visible(False)  # hide the x axis
-ax.yaxis.set_visible(False)  # hide the y axis
-
-
-
 fig, ax = plt.subplots(figsize=(12, 2)) # set size frame
 ax.xaxis.set_visible(False)  # hide the x axis
 ax.yaxis.set_visible(False)  # hide the y axis
@@ -66,7 +59,7 @@ tabla = table(ax, color_df, loc='upper right', colWidths=[0.17]*len(color_df.col
 tabla.auto_set_font_size(False) # Activate set fontsize manually
 tabla.set_fontsize(12) # if ++fontsize is necessary ++colWidths
 tabla.scale(1.2, 1.2) # change size table
-
+#save our color_df table as png
 plt.savefig('color.png')
 
 # googletrans you will in some cases encounter error such as :
